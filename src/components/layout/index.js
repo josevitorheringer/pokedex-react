@@ -1,12 +1,14 @@
-//import api from "../../services/api";
 import Header from "../header/header";
+import * as S from "./styled";
 
 const Layout = ({ children }) => {
   return (
-    <div>
-      <Header />
+    <>
+      <S.WrapperHeader>
+        <Header />
+      </S.WrapperHeader>
       {children}
-    </div>
+    </>
   );
 };
 

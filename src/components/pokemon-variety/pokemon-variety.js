@@ -1,38 +1,34 @@
 import * as S from "./styled";
 import PokemonInfo from "../pokemon-info/pokemon-info";
+import usePokemon from "../hooks/pokemon-hooks";
 
 const PokemonVariety = () => {
-  return (
-    <>
-      <S.WrapperTabs>
-        <S.WrapperTabList>
-          <S.WrapperTab>Normal</S.WrapperTab>
-          <S.WrapperTab>Mega</S.WrapperTab>
-          <S.WrapperTab>Gigantamax</S.WrapperTab>
-        </S.WrapperTabList>
+  const { pokemonState } = usePokemon();
+  const { pokemonVarieties } = pokemonState;
 
-        <S.WrapperTabPanels>
-          <S.WrapperTabPanel>
-            <PokemonInfo
-              image="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/94.png"
-              name="Gengar"
-            />
-          </S.WrapperTabPanel>
-          <S.WrapperTabPanel>
-            <PokemonInfo
-              image="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/10038.png"
-              name="Mega Gengar"
-            />
-          </S.WrapperTabPanel>
-          <S.WrapperTabPanel>
-            <PokemonInfo
-              image="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/10193.png"
-              name="Gengar Gmax"
-            />
-          </S.WrapperTabPanel>
-        </S.WrapperTabPanels>
-      </S.WrapperTabs>
-    </>
+  return (
+    <S.WrapperPokeInformations>
+      <S.WrapperCard>
+        <S.WrapperTabs
+          selectedTabClassName="is-selected"
+          selectedTabPanelClassName="is-selected"
+        >
+          <S.WrapperTabList>
+            {pokemonVarieties.map((pokemonData) => (
+              <S.WrapperTab key={pokemonData.id}>
+                {pokemonData.name}
+              </S.WrapperTab>
+            ))}
+          </S.WrapperTabList>
+
+          {pokemonVarieties.map((pokemonData) => (
+            <S.WrapperTabPanel key={pokemonData.id}>
+              <PokemonInfo pokemonData={pokemonData} />
+            </S.WrapperTabPanel>
+          ))}
+        </S.WrapperTabs>
+      </S.WrapperCard>
+    </S.WrapperPokeInformations>
   );
 };
 export default PokemonVariety;
